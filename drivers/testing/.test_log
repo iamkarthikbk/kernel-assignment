@@ -1,0 +1,906 @@
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ vim Makefile
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c  linked_lists.c  Makefile  misc_device.c  new_misc_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ mv misc_device.c misc_char_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ make
+make -C /lib/modules/5.4.0-59-generic/build M=/home/bkkarthik/Work/kernel-assignment/drivers/testing modules
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-59-generic'
+  CC [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/misc_char_device.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/misc_char_device.mod.o
+  LD [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/misc_char_device.ko
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-59-generic'
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c         misc_char_device.c    misc_char_device.mod.c  modules.order
+linked_lists.c  misc_char_device.ko   misc_char_device.mod.o  Module.symvers
+Makefile        misc_char_device.mod  misc_char_device.o      new_misc_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo insmod *.ko
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls /dev
+autofs           hpet       loop13            port      tty10  tty33  tty56      ttyS2    userio  vcsu7
+block            hugepages  loop2             ppp       tty11  tty34  tty57      ttyS20   v4l     vfio
+bsg              hwrng      loop3             psaux     tty12  tty35  tty58      ttyS21   vcs     vga_arbiter
+btrfs-control    i2c-0      loop4             ptmx      tty13  tty36  tty59      ttyS22   vcs1    vhci
+bus              i2c-1      loop5             pts       tty14  tty37  tty6       ttyS23   vcs2    vhost-net
+char             i2c-10     loop6             random    tty15  tty38  tty60      ttyS24   vcs3    vhost-vsock
+console          i2c-2      loop7             rfkill    tty16  tty39  tty61      ttyS25   vcs4    video0
+core             i2c-3      loop8             rtc       tty17  tty4   tty62      ttyS26   vcs5    video1
+cpu              i2c-4      loop9             rtc0      tty18  tty40  tty63      ttyS27   vcs6    vmci
+cpu_dma_latency  i2c-5      loop-control      sda       tty19  tty41  tty7       ttyS28   vcs7    vmmon
+cuse             i2c-6      mapper            sda1      tty2   tty42  tty8       ttyS29   vcsa    vmnet0
+disk             i2c-7      mcelog            sda2      tty20  tty43  tty9       ttyS3    vcsa1   vmnet1
+dri              i2c-8      media0            sda3      tty21  tty44  ttyprintk  ttyS30   vcsa2   vmnet8
+drm_dp_aux0      i2c-9      mei0              sg0       tty22  tty45  ttyS0      ttyS31   vcsa3   vsock
+drm_dp_aux1      initctl    mem               shm       tty23  tty46  ttyS1      ttyS4    vcsa4   wmi
+ecryptfs         input      mqueue            snapshot  tty24  tty47  ttyS10     ttyS5    vcsa5   zero
+fb0              kmsg       net               snd       tty25  tty48  ttyS11     ttyS6    vcsa6   zfs
+fd               kvm        null              stderr    tty26  tty49  ttyS12     ttyS7    vcsa7
+full             lightnvm   nvidia0           stdin     tty27  tty5   ttyS13     ttyS8    vcsu
+fuse             log        nvidiactl         stdout    tty28  tty50  ttyS14     ttyS9    vcsu1
+gpiochip0        loop0      nvidia-modeset    tpm0      tty29  tty51  ttyS15     udmabuf  vcsu2
+hidraw0          loop1      nvidia-uvm        tpmrm0    tty3   tty52  ttyS16     uhid     vcsu3
+hidraw1          loop10     nvidia-uvm-tools  tty       tty30  tty53  ttyS17     uinput   vcsu4
+hidraw2          loop11     nvram             tty0      tty31  tty54  ttyS18     urandom  vcsu5
+hidraw3          loop12     pesuio            tty1      tty32  tty55  ttyS19     usb      vcsu6
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ cat /dev/pesuio
+cat: /dev/pesuio: Permission denied
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo !!
+sudo cat /dev/pesuio
+PES2201800185bkkarthik:~/Work/kernel-assignment/drivers/testing$ cat > /dev/pesuio
+bash: /dev/pesuio: Permission denied
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo !!
+sudo cat > /dev/pesuio
+bash: /dev/pesuio: Permission denied
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ cat > /dev/pesuio
+bash: /dev/pesuio: Permission denied
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ su -
+Password: 
+root@pesu:~# cat > /dev/pesuio
+aljkvbj
+cat: write error: Invalid argument
+root@pesu:~# cat > /dev/pesuio
+PES2201800185
+^C
+root@pesu:~# logout
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c         misc_char_device.c    misc_char_device.mod.c  modules.order
+linked_lists.c  misc_char_device.ko   misc_char_device.mod.o  Module.symvers
+Makefile        misc_char_device.mod  misc_char_device.o      new_misc_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo rmmod misc_char_device.ko
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls /dev
+autofs           hpet       loop13            ppp       tty11  tty34  tty57      ttyS20   v4l    vfio
+block            hugepages  loop2             psaux     tty12  tty35  tty58      ttyS21   vcs    vga_arbiter
+bsg              hwrng      loop3             ptmx      tty13  tty36  tty59      ttyS22   vcs1   vhci
+btrfs-control    i2c-0      loop4             pts       tty14  tty37  tty6       ttyS23   vcs2   vhost-net
+bus              i2c-1      loop5             random    tty15  tty38  tty60      ttyS24   vcs3   vhost-vsock
+char             i2c-10     loop6             rfkill    tty16  tty39  tty61      ttyS25   vcs4   video0
+console          i2c-2      loop7             rtc       tty17  tty4   tty62      ttyS26   vcs5   video1
+core             i2c-3      loop8             rtc0      tty18  tty40  tty63      ttyS27   vcs6   vmci
+cpu              i2c-4      loop9             sda       tty19  tty41  tty7       ttyS28   vcs7   vmmon
+cpu_dma_latency  i2c-5      loop-control      sda1      tty2   tty42  tty8       ttyS29   vcsa   vmnet0
+cuse             i2c-6      mapper            sda2      tty20  tty43  tty9       ttyS3    vcsa1  vmnet1
+disk             i2c-7      mcelog            sda3      tty21  tty44  ttyprintk  ttyS30   vcsa2  vmnet8
+dri              i2c-8      media0            sg0       tty22  tty45  ttyS0      ttyS31   vcsa3  vsock
+drm_dp_aux0      i2c-9      mei0              shm       tty23  tty46  ttyS1      ttyS4    vcsa4  wmi
+drm_dp_aux1      initctl    mem               snapshot  tty24  tty47  ttyS10     ttyS5    vcsa5  zero
+ecryptfs         input      mqueue            snd       tty25  tty48  ttyS11     ttyS6    vcsa6  zfs
+fb0              kmsg       net               stderr    tty26  tty49  ttyS12     ttyS7    vcsa7
+fd               kvm        null              stdin     tty27  tty5   ttyS13     ttyS8    vcsu
+full             lightnvm   nvidia0           stdout    tty28  tty50  ttyS14     ttyS9    vcsu1
+fuse             log        nvidiactl         tpm0      tty29  tty51  ttyS15     udmabuf  vcsu2
+gpiochip0        loop0      nvidia-modeset    tpmrm0    tty3   tty52  ttyS16     uhid     vcsu3
+hidraw0          loop1      nvidia-uvm        tty       tty30  tty53  ttyS17     uinput   vcsu4
+hidraw1          loop10     nvidia-uvm-tools  tty0      tty31  tty54  ttyS18     urandom  vcsu5
+hidraw2          loop11     nvram             tty1      tty32  tty55  ttyS19     usb      vcsu6
+hidraw3          loop12     port              tty10     tty33  tty56  ttyS2      userio   vcsu7
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ make clean
+make -C /lib/modules/5.4.0-59-generic/build M=/home/bkkarthik/Work/kernel-assignment/drivers/testing clean
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-59-generic'
+  CLEAN   /home/bkkarthik/Work/kernel-assignment/drivers/testing/Module.symvers
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-59-generic'
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c  linked_lists.c  Makefile  misc_char_device.c  new_misc_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ vim Makefile
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ make
+make -C /lib/modules/5.4.0-59-generic/build M=/home/bkkarthik/Work/kernel-assignment/drivers/testing modules
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-59-generic'
+make[2]: *** No rule to make target '/home/bkkarthik/Work/kernel-assignment/drivers/testing/lined_lists.o', needed by '__build'.  Stop.
+Makefile:1757: recipe for target '/home/bkkarthik/Work/kernel-assignment/drivers/testing' failed
+make[1]: *** [/home/bkkarthik/Work/kernel-assignment/drivers/testing] Error 2
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-59-generic'
+Makefile:9: recipe for target 'default' failed
+make: *** [default] Error 2
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ vim Makefile
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ make
+make -C /lib/modules/5.4.0-59-generic/build M=/home/bkkarthik/Work/kernel-assignment/drivers/testing modules
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-59-generic'
+  CC [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/linked_lists.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/linked_lists.mod.o
+  LD [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/linked_lists.ko
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-59-generic'
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c         linked_lists.ko   linked_lists.mod.c  linked_lists.o  misc_char_device.c  Module.symvers
+linked_lists.c  linked_lists.mod  linked_lists.mod.o  Makefile        modules.order       new_misc_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo insmod *.ko
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 20:26 ?        00:00:01 /sbin/init splash
+root         2     0  0 20:26 ?        00:00:00 [kthreadd]
+root         3     2  0 20:26 ?        00:00:00 [rcu_gp]
+root         4     2  0 20:26 ?        00:00:00 [rcu_par_gp]
+root         6     2  0 20:26 ?        00:00:00 [kworker/0:0H-kb]
+root         9     2  0 20:26 ?        00:00:00 [mm_percpu_wq]
+root        10     2  0 20:26 ?        00:00:00 [ksoftirqd/0]
+root        11     2  0 20:26 ?        00:00:05 [rcu_sched]
+root        12     2  0 20:26 ?        00:00:00 [migration/0]
+root        13     2  0 20:26 ?        00:00:00 [idle_inject/0]
+root        14     2  0 20:26 ?        00:00:00 [cpuhp/0]
+root        15     2  0 20:26 ?        00:00:00 [cpuhp/1]
+root        16     2  0 20:26 ?        00:00:00 [idle_inject/1]
+root        17     2  0 20:26 ?        00:00:00 [migration/1]
+root        18     2  0 20:26 ?        00:00:00 [ksoftirqd/1]
+root        20     2  0 20:26 ?        00:00:00 [kworker/1:0H-kb]
+root        21     2  0 20:26 ?        00:00:00 [cpuhp/2]
+root        22     2  0 20:26 ?        00:00:00 [idle_inject/2]
+root        23     2  0 20:26 ?        00:00:00 [migration/2]
+root        24     2  0 20:26 ?        00:00:00 [ksoftirqd/2]
+root        26     2  0 20:26 ?        00:00:00 [kworker/2:0H-kb]
+root        27     2  0 20:26 ?        00:00:00 [cpuhp/3]
+root        28     2  0 20:26 ?        00:00:00 [idle_inject/3]
+root        29     2  0 20:26 ?        00:00:00 [migration/3]
+root        30     2  0 20:26 ?        00:00:00 [ksoftirqd/3]
+root        32     2  0 20:26 ?        00:00:00 [kworker/3:0H-kb]
+root        33     2  0 20:26 ?        00:00:00 [cpuhp/4]
+root        34     2  0 20:26 ?        00:00:00 [idle_inject/4]
+root        35     2  0 20:26 ?        00:00:00 [migration/4]
+root        36     2  0 20:26 ?        00:00:00 [ksoftirqd/4]
+root        38     2  0 20:26 ?        00:00:00 [kworker/4:0H-kb]
+root        39     2  0 20:26 ?        00:00:00 [cpuhp/5]
+root        40     2  0 20:26 ?        00:00:00 [idle_inject/5]
+root        41     2  0 20:26 ?        00:00:00 [migration/5]
+root        42     2  0 20:26 ?        00:00:00 [ksoftirqd/5]
+root        44     2  0 20:26 ?        00:00:00 [kworker/5:0H-ev]
+root        45     2  0 20:26 ?        00:00:00 [cpuhp/6]
+root        46     2  0 20:26 ?        00:00:00 [idle_inject/6]
+root        47     2  0 20:26 ?        00:00:00 [migration/6]
+root        48     2  0 20:26 ?        00:00:00 [ksoftirqd/6]
+root        50     2  0 20:26 ?        00:00:00 [kworker/6:0H-kb]
+root        51     2  0 20:26 ?        00:00:00 [cpuhp/7]
+root        52     2  0 20:26 ?        00:00:00 [idle_inject/7]
+root        53     2  0 20:26 ?        00:00:00 [migration/7]
+root        54     2  0 20:26 ?        00:00:00 [ksoftirqd/7]
+root        56     2  0 20:26 ?        00:00:00 [kworker/7:0H-kb]
+root        57     2  0 20:26 ?        00:00:00 [cpuhp/8]
+root        58     2  0 20:26 ?        00:00:00 [idle_inject/8]
+root        59     2  0 20:26 ?        00:00:00 [migration/8]
+root        60     2  0 20:26 ?        00:00:00 [ksoftirqd/8]
+root        62     2  0 20:26 ?        00:00:00 [kworker/8:0H-kb]
+root        63     2  0 20:26 ?        00:00:00 [cpuhp/9]
+root        64     2  0 20:26 ?        00:00:00 [idle_inject/9]
+root        65     2  0 20:26 ?        00:00:00 [migration/9]
+root        66     2  0 20:26 ?        00:00:00 [ksoftirqd/9]
+root        68     2  0 20:26 ?        00:00:00 [kworker/9:0H-kb]
+root        69     2  0 20:26 ?        00:00:00 [cpuhp/10]
+root        70     2  0 20:26 ?        00:00:00 [idle_inject/10]
+root        71     2  0 20:26 ?        00:00:00 [migration/10]
+root        72     2  0 20:26 ?        00:00:00 [ksoftirqd/10]
+root        74     2  0 20:26 ?        00:00:00 [kworker/10:0H-e]
+root        75     2  0 20:26 ?        00:00:00 [cpuhp/11]
+root        76     2  0 20:26 ?        00:00:00 [idle_inject/11]
+root        77     2  0 20:26 ?        00:00:00 [migration/11]
+root        78     2  0 20:26 ?        00:00:00 [ksoftirqd/11]
+root        80     2  0 20:26 ?        00:00:00 [kworker/11:0H-k]
+root        81     2  0 20:26 ?        00:00:00 [kdevtmpfs]
+root        82     2  0 20:26 ?        00:00:00 [netns]
+root        83     2  0 20:26 ?        00:00:00 [rcu_tasks_kthre]
+root        84     2  0 20:26 ?        00:00:00 [kauditd]
+root        87     2  0 20:26 ?        00:00:00 [khungtaskd]
+root        88     2  0 20:26 ?        00:00:00 [oom_reaper]
+root        89     2  0 20:26 ?        00:00:00 [writeback]
+root        90     2  0 20:26 ?        00:00:00 [kcompactd0]
+root        91     2  0 20:26 ?        00:00:00 [ksmd]
+root        92     2  0 20:26 ?        00:00:00 [khugepaged]
+root       138     2  0 20:26 ?        00:00:00 [kintegrityd]
+root       139     2  0 20:26 ?        00:00:00 [kblockd]
+root       140     2  0 20:26 ?        00:00:00 [blkcg_punt_bio]
+root       146     2  0 20:26 ?        00:00:00 [tpm_dev_wq]
+root       147     2  0 20:26 ?        00:00:00 [ata_sff]
+root       148     2  0 20:26 ?        00:00:00 [md]
+root       149     2  0 20:26 ?        00:00:00 [edac-poller]
+root       150     2  0 20:26 ?        00:00:00 [devfreq_wq]
+root       152     2  0 20:26 ?        00:00:00 [watchdogd]
+root       159     2  0 20:26 ?        00:00:00 [kswapd0]
+root       160     2  0 20:26 ?        00:00:00 [ecryptfs-kthrea]
+root       162     2  0 20:26 ?        00:00:00 [kthrotld]
+root       163     2  0 20:26 ?        00:00:00 [irq/123-aerdrv]
+root       164     2  0 20:26 ?        00:00:00 [irq/123-pciehp]
+root       165     2  0 20:26 ?        00:00:00 [irq/123-pcie-dp]
+root       166     2  0 20:26 ?        00:00:00 [irq/124-aerdrv]
+root       167     2  0 20:26 ?        00:00:00 [irq/124-pcie-dp]
+root       168     2  0 20:26 ?        00:00:00 [irq/125-aerdrv]
+root       169     2  0 20:26 ?        00:00:00 [irq/125-pcie-dp]
+root       170     2  0 20:26 ?        00:00:00 [acpi_thermal_pm]
+root       172     2  0 20:26 ?        00:00:00 [vfio-irqfd-clea]
+root       179     2  0 20:26 ?        00:00:00 [ipv6_addrconf]
+root       188     2  0 20:26 ?        00:00:00 [kstrp]
+root       206     2  0 20:26 ?        00:00:00 [charger_manager]
+root       277     2  0 20:26 ?        00:00:00 [scsi_eh_0]
+root       278     2  0 20:26 ?        00:00:00 [scsi_tmf_0]
+root       282     2  0 20:26 ?        00:00:00 [kworker/3:1H]
+root       285     2  0 20:26 ?        00:00:00 [kworker/1:1H-kb]
+root       306     2  0 20:26 ?        00:00:00 [kworker/11:2-ev]
+root       361     2  0 20:26 ?        00:00:00 [kworker/10:1H-k]
+root       365     2  0 20:26 ?        00:00:00 [kworker/5:1H-kb]
+root       412     2  0 20:26 ?        00:00:00 [kworker/4:1H-kb]
+root       413     2  0 20:26 ?        00:00:00 [kworker/11:1H-k]
+root       414     2  0 20:26 ?        00:00:01 [jbd2/sda2-8]
+root       415     2  0 20:26 ?        00:00:00 [ext4-rsv-conver]
+root       417     2  0 20:26 ?        00:00:00 [kworker/8:1H-kb]
+root       434     2  0 20:26 ?        00:00:00 [kworker/6:1H-kb]
+root       440     2  0 20:26 ?        00:00:00 [kworker/0:1H-kb]
+root       458     2  0 20:26 ?        00:00:00 [kworker/9:1H-kb]
+root       459     2  0 20:26 ?        00:00:00 [kworker/2:1H-kb]
+root       465     2  0 20:27 ?        00:00:00 [kworker/7:1H-kb]
+root       474     1  0 20:27 ?        00:00:00 /lib/systemd/systemd-journald
+root       495     1  0 20:27 ?        00:00:00 /sbin/lvmetad -f
+root       498     1  0 20:27 ?        00:00:01 /lib/systemd/systemd-udevd
+root       501     2  0 20:27 ?        00:00:00 [loop0]
+root       502     2  0 20:27 ?        00:00:00 [loop1]
+root       504     2  0 20:27 ?        00:00:00 [loop2]
+root       507     2  0 20:27 ?        00:00:00 [loop3]
+root       509     2  0 20:27 ?        00:00:00 [loop4]
+root       511     2  0 20:27 ?        00:00:00 [loop5]
+root       519     2  0 20:27 ?        00:00:00 [loop6]
+root       520     2  0 20:27 ?        00:00:00 [loop7]
+root       521     2  0 20:27 ?        00:00:00 [loop8]
+root       522     2  0 20:27 ?        00:00:00 [loop9]
+root       523     2  0 20:27 ?        00:00:00 [loop10]
+root       524     2  0 20:27 ?        00:00:00 [loop11]
+root       525     2  0 20:27 ?        00:00:00 [loop12]
+root       591     2  0 20:27 ?        00:00:00 [kworker/4:2-eve]
+root       592     2  0 20:27 ?        00:00:00 [irq/82-DELL09E2]
+root       604     2  0 20:27 ?        00:00:00 [irq/129-mei_me]
+root       606     2  0 20:27 ?        00:00:00 [cfg80211]
+root       615     2  0 20:27 ?        00:00:00 [kworker/u25:1-h]
+root       616     2  0 20:27 ?        00:00:00 [kworker/u25:2-h]
+root       674     2  0 20:27 ?        00:00:00 [ath10k_wq]
+root       675     2  0 20:27 ?        00:00:00 [ath10k_aux_wq]
+root       676     2  0 20:27 ?        00:00:00 [cryptd]
+root       693     2  0 20:27 ?        00:00:00 [nv_queue]
+root       694     2  0 20:27 ?        00:00:00 [nv_queue]
+root       705     2  0 20:27 ?        00:00:00 [nvidia-modeset/]
+root       706     2  0 20:27 ?        00:00:00 [nvidia-modeset/]
+root       722     2  0 20:27 ?        00:00:00 [UVM global queu]
+root       723     2  0 20:27 ?        00:00:00 [UVM deferred re]
+root       724     2  0 20:27 ?        00:00:00 [UVM Tools Event]
+root       753     2  0 20:27 ?        00:00:00 [irq/131-AudioHD]
+root       754     2  0 20:27 ?        00:00:00 [irq/131-AudioDS]
+systemd+   898     1  0 20:27 ?        00:00:01 /lib/systemd/systemd-resolved
+systemd+   900     1  0 20:27 ?        00:00:00 /lib/systemd/systemd-timesyncd
+root       951     1  0 20:27 ?        00:00:01 /usr/lib/udisks2/udisksd
+root       952     1  0 20:27 ?        00:00:00 /usr/lib/accountsservice/accounts-daemon
+root       953     1  0 20:27 ?        00:00:00 /usr/sbin/cron -f
+root       954     1  0 20:27 ?        00:00:00 /usr/bin/pantheon-parental-controls-daemon
+root       955     1  0 20:27 ?        00:00:00 /usr/lib/bluetooth/bluetoothd
+root       956     1  0 20:27 ?        00:00:01 /lib/systemd/systemd-logind
+root       957     1  0 20:27 ?        00:00:01 /usr/sbin/acpid
+syslog     958     1  0 20:27 ?        00:00:00 /usr/sbin/rsyslogd -n
+message+   959     1  0 20:27 ?        00:00:02 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile -
+root       990     1  0 20:27 ?        00:00:00 /usr/bin/vmware-usbarbitrator
+root      1002     1  0 20:27 ?        00:00:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+root      1003     1  0 20:27 ?        00:00:03 /usr/sbin/NetworkManager --no-daemon
+root      1006     1  0 20:27 ?        00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root      1008     1  0 20:27 ?        00:00:00 /usr/sbin/irqbalance --foreground
+avahi     1016     1  0 20:27 ?        00:00:00 avahi-daemon: running [pesu.local]
+root      1017     1  0 20:27 ?        00:00:00 /usr/sbin/ModemManager --filter-policy=strict
+root      1020     1  0 20:27 ?        00:00:02 /usr/lib/snapd/snapd
+nvidia-+  1028     1  0 20:27 ?        00:00:00 /usr/bin/nvidia-persistenced --user nvidia-persistenced --no-persistenc
+avahi     1031  1016  0 20:27 ?        00:00:00 avahi-daemon: chroot helper
+root      1038     1  0 20:27 ?        00:00:00 /usr/lib/policykit-1/polkitd --no-debug
+root      1084     1  0 20:27 ?        00:00:00 /usr/sbin/libvirtd
+colord    1087     1  0 20:27 ?        00:00:00 /usr/lib/colord/colord
+root      1089     1  0 20:27 ?        00:00:00 /usr/bin/anydesk --service
+root      1093     1  0 20:27 ?        00:00:00 /usr/sbin/lightdm
+root      1127  1093  1 20:27 tty7     00:02:41 /usr/lib/xorg/Xorg -core :0 -seat seat0 -auth /var/run/lightdm/root/:0 
+root      1133     1  0 20:27 tty1     00:00:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+root      1137     1  0 20:27 ?        00:00:00 /usr/sbin/sshd -D
+root      1222     2  1 20:27 ?        00:02:53 [irq/132-nvidia]
+root      1223     2  0 20:27 ?        00:00:00 [nvidia]
+root      1224     2  0 20:27 ?        00:00:01 [nv_queue]
+root      1248  1003  0 20:27 ?        00:00:00 /sbin/dhclient -d -q -sf /usr/lib/NetworkManager/nm-dhcp-helper -pf /ru
+kernoops  1273     1  0 20:27 ?        00:00:00 /usr/sbin/kerneloops --test
+kernoops  1275     1  0 20:27 ?        00:00:00 /usr/sbin/kerneloops
+root      1420     2  0 20:27 ?        00:00:00 bpfilter_umh
+root      1479     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-bridge -s 6 -d /var/run/vmnet-bridge-0.pid -n 0
+root      1490     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-netifup -s 6 -d /var/run/vmnet-netifup-vmnet1.pid /dev/v
+root      1504     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-dhcpd -s 6 -cf /etc/vmware/vmnet1/dhcpd/dhcpd.conf -lf /
+root      1510     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-natd -s 6 -m /etc/vmware/vmnet8/nat.mac -c /etc/vmware/v
+root      1512     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-netifup -s 6 -d /var/run/vmnet-netifup-vmnet8.pid /dev/v
+root      1521     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-dhcpd -s 6 -cf /etc/vmware/vmnet8/dhcpd/dhcpd.conf -lf /
+libvirt+  1687     1  0 20:27 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --l
+root      1689  1687  0 20:27 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --l
+root      1887     1  0 20:27 ?        00:00:01 /usr/lib/upower/upowerd
+root      1945  1093  0 20:27 ?        00:00:00 lightdm --session-child 13 20
+rtkit     1955     1  0 20:27 ?        00:00:00 /usr/lib/rtkit/rtkit-daemon
+root      1974     2  0 20:27 ?        00:00:00 [krfcommd]
+bkkarth+  1982     1  0 20:28 ?        00:00:00 /lib/systemd/systemd --user
+bkkarth+  1983  1982  0 20:28 ?        00:00:00 (sd-pam)
+bkkarth+  1999     1  0 20:28 ?        00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+bkkarth+  2002  1945  0 20:28 ?        00:00:00 /usr/lib/gnome-session/gnome-session-binary --session=pantheon
+bkkarth+  2015  1982  0 20:28 ?        00:00:01 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile 
+bkkarth+  2017  1982  0 20:28 ?        00:00:00 /usr/lib/gvfs/gvfsd
+bkkarth+  2022  1982  0 20:28 ?        00:00:00 /usr/lib/gvfs/gvfsd-fuse /run/user/1000/gvfs -f -o big_writes
+bkkarth+  2133  2002  0 20:28 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch gnome-session --session=pantheon
+bkkarth+  2147  1982  0 20:28 ?        00:00:00 /usr/lib/at-spi2-core/at-spi-bus-launcher
+bkkarth+  2152  2147  0 20:28 ?        00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessib
+bkkarth+  2154  1982  0 20:28 ?        00:00:03 /usr/lib/at-spi2-core/at-spi2-registryd --use-gnome-session
+bkkarth+  2167  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-smartcard
+bkkarth+  2170  2002  0 20:28 ?        00:00:01 /usr/lib/gnome-settings-daemon/gsd-sharing
+bkkarth+  2173  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-housekeeping
+bkkarth+  2174  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-wacom
+bkkarth+  2183  2002  0 20:28 ?        00:00:01 /usr/lib/gnome-settings-daemon/gsd-color
+bkkarth+  2185  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-rfkill
+bkkarth+  2207  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-a11y-settings
+bkkarth+  2208  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-clipboard
+bkkarth+  2223  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-xsettings
+bkkarth+  2224  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-power
+bkkarth+  2225  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-keyboard
+bkkarth+  2231  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-sound
+bkkarth+  2233  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-print-notifications
+bkkarth+  2246  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-datetime
+bkkarth+  2250     1  0 20:28 ?        00:00:16 /usr/bin/pulseaudio --start --log-target=syslog
+bkkarth+  2251  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-mouse
+bkkarth+  2252  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-media-keys
+bkkarth+  2281     1  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-printer
+bkkarth+  2304  2002  3 20:28 ?        00:05:30 gala
+bkkarth+  2318  1982  0 20:28 ?        00:00:01 /usr/lib/dconf/dconf-service
+bkkarth+  2323  2002  0 20:28 ?        00:00:03 plank
+bkkarth+  2328  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/io.elementary.cerbere
+bkkarth+  2332  2002  0 20:28 ?        00:00:03 wingpanel
+bkkarth+  2342  1982  0 20:28 ?        00:00:01 /usr/lib/x86_64-linux-gnu/bamf/bamfdaemon
+bkkarth+  2368  2002  0 20:28 ?        00:00:00 gala-daemon
+bkkarth+  2375  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/policykit-1-pantheon/io.elementary.desktop.ag
+bkkarth+  2380  2002  0 20:28 ?        00:00:00 /usr/bin/anydesk --tray
+bkkarth+  2389  2002  0 20:28 ?        00:00:01 nm-applet
+bkkarth+  2390  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/geoclue2-1-pantheon/pantheon-agent-geoclue2
+bkkarth+  2392  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/pantheon-parental-controls-client
+bkkarth+  2405  2002  0 20:28 ?        00:00:00 light-locker
+bkkarth+  2414  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/io.elementary.calendar-daemon
+bkkarth+  2444  1982  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-source-registry
+bkkarth+  2460  1982  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-calendar-factory
+bkkarth+  2472  2460  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-calendar-factory-subprocess --factory all 
+bkkarth+  2483  1982  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-addressbook-factory
+bkkarth+  2492  2483  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-addressbook-factory-subprocess --factory a
+bkkarth+  2921  2002  0 20:29 ?        00:00:02 io.elementary.appcenter -s
+bkkarth+  2935  2921  0 20:29 ?        00:00:00 sh -c /usr/lib/x86_64-linux-gnu/libproxy/0.4.14/pxgsettings org.gnome.s
+bkkarth+  2936  2935  0 20:29 ?        00:00:00 /usr/lib/x86_64-linux-gnu/libproxy/0.4.14/pxgsettings org.gnome.system.
+root      5087     1  0 20:32 ?        00:00:00 /usr/sbin/cupsd -l
+root      5088     1  0 20:32 ?        00:00:00 /usr/sbin/cups-browsed
+bkkarth+  5554     1  0 20:52 ?        00:00:34 io.elementary.terminal
+bkkarth+  5563  5554  0 20:52 pts/0    00:00:01 /bin/bash
+bkkarth+  5567  5554  0 20:52 pts/1    00:00:00 /bin/bash
+bkkarth+  5841     1  2 20:54 ?        00:03:31 /opt/google/chrome/chrome
+bkkarth+  5848  5841  0 20:54 ?        00:00:00 cat
+bkkarth+  5849  5841  0 20:54 ?        00:00:00 cat
+bkkarth+  5852  5841  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=zygote --no-zygote-sandbox --enable-cr
+bkkarth+  5853  5841  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=zygote --enable-crash-reporter=62850c4
+bkkarth+  5854  5853  0 20:54 ?        00:00:00 /opt/google/chrome/nacl_helper
+bkkarth+  5857  5853  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=zygote --enable-crash-reporter=62850c4
+bkkarth+  5881  5852  5 20:54 ?        00:08:04 /opt/google/chrome/chrome --type=gpu-process --field-trial-handle=64288
+bkkarth+  5884  5841  0 20:54 ?        00:00:31 /opt/google/chrome/chrome --type=utility --utility-sub-type=network.moj
+bkkarth+  5899  5881  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=broker
+bkkarth+  5906  5857  0 20:54 ?        00:00:01 /opt/google/chrome/chrome --type=utility --utility-sub-type=storage.moj
+bkkarth+  5922  5857  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5930  5857  0 20:54 ?        00:00:07 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5982  5857  0 20:54 ?        00:00:01 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5987  5857  0 20:54 ?        00:00:12 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5992  5857  0 20:54 ?        00:00:34 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  6002  5857  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  6124  5857  6 20:54 ?        00:09:53 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  6336  5857  0 20:55 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  9751  1982  0 22:20 ?        00:00:00 /usr/bin/gpg-agent --supervised
+bkkarth+ 10081  5857  5 22:23 ?        00:03:05 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+ 10536  5841  0 22:27 ?        00:00:05 /opt/google/chrome/chrome --type=utility --utility-sub-type=audio.mojom
+bkkarth+ 10572  5857  0 22:27 ?        00:00:02 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+ 10578  5857  7 22:27 ?        00:03:44 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+root     11332     2  0 22:38 ?        00:00:00 [kworker/3:1-eve]
+root     11336     2  0 22:38 ?        00:00:00 [kworker/7:3-mm_]
+bkkarth+ 11354     1  0 22:38 ?        00:00:18 /usr/share/teams/teams
+bkkarth+ 11358 11354  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=zygote --electron-shared-settings=eyJjci5
+bkkarth+ 11360 11358  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=zygote --electron-shared-settings=eyJjci5
+bkkarth+ 11395 11354  2 22:38 ?        00:01:12 /usr/share/teams/teams --type=gpu-process --field-trial-handle=61520013
+bkkarth+ 11398 11354  0 22:38 ?        00:00:04 /usr/share/teams/teams --type=utility --field-trial-handle=615200130769
+bkkarth+ 11407 11395  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=broker
+bkkarth+ 11426 11354  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11497 11354  6 22:38 ?        00:02:32 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11527 11360  0 22:38 ?        00:00:03 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11557 11354  0 22:38 ?        00:00:06 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11899  2017  0 22:43 ?        00:00:00 /usr/lib/gvfs/gvfsd-http --spawner :1.2 /org/gtk/gvfs/exec_spaw/0
+root     11988     2  0 22:43 ?        00:00:00 [kworker/8:2-eve]
+root     11998     2  0 22:43 ?        00:00:00 [kworker/9:5-mm_]
+root     12033     2  0 22:43 ?        00:00:00 [kworker/10:2-ev]
+bkkarth+ 12077  5857  6 22:43 ?        00:02:24 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+root     12179     2  0 22:44 ?        00:00:00 [kworker/1:2-eve]
+root     12522     2  0 22:47 ?        00:00:00 [kworker/2:0-eve]
+root     12917     2  0 22:51 ?        00:00:00 [kworker/0:0-eve]
+bkkarth+ 13063  5857  0 22:53 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+root     13138     2  0 22:53 ?        00:00:00 [kworker/6:2-eve]
+root     13166     2  0 22:53 ?        00:00:00 [kworker/3:2]
+root     13241     2  0 22:54 ?        00:00:00 [kworker/5:2-eve]
+root     13567     2  0 22:57 ?        00:00:00 [kworker/11:1-mm]
+root     13667     2  0 22:59 ?        00:00:00 [kworker/10:0-ev]
+root     13779     2  0 23:00 ?        00:00:00 [kworker/4:0-mm_]
+root     13851     2  0 23:00 ?        00:00:00 [kworker/8:1-eve]
+root     14270     2  0 23:04 ?        00:00:00 [kworker/7:1-eve]
+root     14385     2  0 23:05 ?        00:00:00 [kworker/1:1-eve]
+root     14397     2  0 23:05 ?        00:00:00 [kworker/6:0-eve]
+root     14533     2  0 23:06 ?        00:00:00 [kworker/u24:0-e]
+root     15203     2  0 23:07 ?        00:00:00 [kworker/0:2-eve]
+root     15553     2  0 23:10 ?        00:00:00 [kworker/5:0-mm_]
+root     15681     2  0 23:10 ?        00:00:00 [kworker/9:0]
+root     16155     2  0 23:12 ?        00:00:00 [kworker/2:2-mm_]
+root     16367     2  0 23:13 ?        00:00:00 [kworker/u24:3-e]
+root     17109     2  0 23:15 ?        00:00:00 [kworker/10:1-ev]
+root     17137     2  0 23:15 ?        00:00:00 [kworker/7:0-eve]
+root     17845     2  0 23:17 ?        00:00:00 [kworker/0:1-mm_]
+bkkarth+ 18966  5563  0 23:19 pts/0    00:00:00 ps -ef
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo dmesg | tail
+[10357.563737] pesuio: identity 1: Alice created successfully
+[10357.563738] pesuio: identity 2: Bob created successfully
+[10357.563739] pesuio: identity 3: Dave created successfully
+[10357.563739] pesuio: identity 10: Gena created successfully
+[10357.563740] id 3 = Dave
+[10357.563740] id 42 not found
+[10357.563741] pesuio: destroying identity 2: Bob
+[10357.563741] pesuio: destroying identity 1: Alice
+[10357.563742] pesuio: destroying identity 10: Gena
+[10357.563742] pesuio: destroying identity 3: Dave
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo dmesg | tail -15
+                1
+[ 9825.284147] Got identity: ejksvnjk 
+                1
+[10148.008166] Hello world
+[10357.563735] Hello world!
+[10357.563737] pesuio: identity 1: Alice created successfully
+[10357.563738] pesuio: identity 2: Bob created successfully
+[10357.563739] pesuio: identity 3: Dave created successfully
+[10357.563739] pesuio: identity 10: Gena created successfully
+[10357.563740] id 3 = Dave
+[10357.563740] id 42 not found
+[10357.563741] pesuio: destroying identity 2: Bob
+[10357.563741] pesuio: destroying identity 1: Alice
+[10357.563742] pesuio: destroying identity 10: Gena
+[10357.563742] pesuio: destroying identity 3: Dave
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo dmesg | tail -25
+[   72.511609] Bluetooth: RFCOMM ver 1.11
+[   88.782482] rfkill: input handler disabled
+[   91.315073] sof-audio-pci 0000:00:1f.3: error: no reply expected, received 0x0
+[   91.437780] sof-audio-pci 0000:00:1f.3: firmware boot complete
+[  104.556077] ACPI: button: The lid device is not compliant to SW_LID.
+[ 9814.315264] Created identity: PES2201800185
+                0
+[ 9819.396138] Got identity: PES2201800185
+                0
+[ 9820.263278] Created identity: ejksvnjk 
+                1
+[ 9825.284147] Got identity: ejksvnjk 
+                1
+[10148.008166] Hello world
+[10357.563735] Hello world!
+[10357.563737] pesuio: identity 1: Alice created successfully
+[10357.563738] pesuio: identity 2: Bob created successfully
+[10357.563739] pesuio: identity 3: Dave created successfully
+[10357.563739] pesuio: identity 10: Gena created successfully
+[10357.563740] id 3 = Dave
+[10357.563740] id 42 not found
+[10357.563741] pesuio: destroying identity 2: Bob
+[10357.563741] pesuio: destroying identity 1: Alice
+[10357.563742] pesuio: destroying identity 10: Gena
+[10357.563742] pesuio: destroying identity 3: Dave
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo rmmod *.ko
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c         linked_lists.ko   linked_lists.mod.c  linked_lists.o  misc_char_device.c  Module.symvers
+linked_lists.c  linked_lists.mod  linked_lists.mod.o  Makefile        modules.order       new_misc_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ make clean
+make -C /lib/modules/5.4.0-59-generic/build M=/home/bkkarthik/Work/kernel-assignment/drivers/testing clean
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-59-generic'
+  CLEAN   /home/bkkarthik/Work/kernel-assignment/drivers/testing/Module.symvers
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-59-generic'
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ vim Makefile
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ make
+make -C /lib/modules/5.4.0-59-generic/build M=/home/bkkarthik/Work/kernel-assignment/drivers/testing modules
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-59-generic'
+  CC [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/new_misc_device.o
+  Building modules, stage 2.
+  MODPOST 1 modules
+  CC [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/new_misc_device.mod.o
+  LD [M]  /home/bkkarthik/Work/kernel-assignment/drivers/testing/new_misc_device.ko
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-59-generic'
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c         Makefile            modules.order   new_misc_device.c   new_misc_device.mod    new_misc_device.mod.o
+linked_lists.c  misc_char_device.c  Module.symvers  new_misc_device.ko  new_misc_device.mod.c  new_misc_device.o
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo insmod *.ko
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls /dev
+autofs           hpet       loop13            port      tty10  tty33  tty56      ttyS2    userio  vcsu7
+block            hugepages  loop2             ppp       tty11  tty34  tty57      ttyS20   v4l     vfio
+bsg              hwrng      loop3             psaux     tty12  tty35  tty58      ttyS21   vcs     vga_arbiter
+btrfs-control    i2c-0      loop4             ptmx      tty13  tty36  tty59      ttyS22   vcs1    vhci
+bus              i2c-1      loop5             pts       tty14  tty37  tty6       ttyS23   vcs2    vhost-net
+char             i2c-10     loop6             random    tty15  tty38  tty60      ttyS24   vcs3    vhost-vsock
+console          i2c-2      loop7             rfkill    tty16  tty39  tty61      ttyS25   vcs4    video0
+core             i2c-3      loop8             rtc       tty17  tty4   tty62      ttyS26   vcs5    video1
+cpu              i2c-4      loop9             rtc0      tty18  tty40  tty63      ttyS27   vcs6    vmci
+cpu_dma_latency  i2c-5      loop-control      sda       tty19  tty41  tty7       ttyS28   vcs7    vmmon
+cuse             i2c-6      mapper            sda1      tty2   tty42  tty8       ttyS29   vcsa    vmnet0
+disk             i2c-7      mcelog            sda2      tty20  tty43  tty9       ttyS3    vcsa1   vmnet1
+dri              i2c-8      media0            sda3      tty21  tty44  ttyprintk  ttyS30   vcsa2   vmnet8
+drm_dp_aux0      i2c-9      mei0              sg0       tty22  tty45  ttyS0      ttyS31   vcsa3   vsock
+drm_dp_aux1      initctl    mem               shm       tty23  tty46  ttyS1      ttyS4    vcsa4   wmi
+ecryptfs         input      mqueue            snapshot  tty24  tty47  ttyS10     ttyS5    vcsa5   zero
+fb0              kmsg       net               snd       tty25  tty48  ttyS11     ttyS6    vcsa6   zfs
+fd               kvm        null              stderr    tty26  tty49  ttyS12     ttyS7    vcsa7
+full             lightnvm   nvidia0           stdin     tty27  tty5   ttyS13     ttyS8    vcsu
+fuse             log        nvidiactl         stdout    tty28  tty50  ttyS14     ttyS9    vcsu1
+gpiochip0        loop0      nvidia-modeset    tpm0      tty29  tty51  ttyS15     udmabuf  vcsu2
+hidraw0          loop1      nvidia-uvm        tpmrm0    tty3   tty52  ttyS16     uhid     vcsu3
+hidraw1          loop10     nvidia-uvm-tools  tty       tty30  tty53  ttyS17     uinput   vcsu4
+hidraw2          loop11     nvram             tty0      tty31  tty54  ttyS18     urandom  vcsu5
+hidraw3          loop12     pesuio            tty1      tty32  tty55  ttyS19     usb      vcsu6
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ cat /dev/pesuio
+cat: /dev/pesuio: Permission denied
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo !!
+sudo cat /dev/pesuio
+cat: /dev/pesuio: Invalid argument
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ su -
+Password: 
+root@pesu:~# cat /dev/pesuio
+cat: /dev/pesuio: Invalid argument
+root@pesu:~# cat > /dev/pesuio
+PES2201800185
+^C
+root@pesu:~# cat > /dev/pesuio
+lajbg
+cat: write error: Invalid argument
+root@pesu:~# ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 20:26 ?        00:00:01 /sbin/init splash
+root         2     0  0 20:26 ?        00:00:00 [kthreadd]
+root         3     2  0 20:26 ?        00:00:00 [rcu_gp]
+root         4     2  0 20:26 ?        00:00:00 [rcu_par_gp]
+root         6     2  0 20:26 ?        00:00:00 [kworker/0:0H-kb]
+root         9     2  0 20:26 ?        00:00:00 [mm_percpu_wq]
+root        10     2  0 20:26 ?        00:00:00 [ksoftirqd/0]
+root        11     2  0 20:26 ?        00:00:05 [rcu_sched]
+root        12     2  0 20:26 ?        00:00:00 [migration/0]
+root        13     2  0 20:26 ?        00:00:00 [idle_inject/0]
+root        14     2  0 20:26 ?        00:00:00 [cpuhp/0]
+root        15     2  0 20:26 ?        00:00:00 [cpuhp/1]
+root        16     2  0 20:26 ?        00:00:00 [idle_inject/1]
+root        17     2  0 20:26 ?        00:00:00 [migration/1]
+root        18     2  0 20:26 ?        00:00:00 [ksoftirqd/1]
+root        20     2  0 20:26 ?        00:00:00 [kworker/1:0H-kb]
+root        21     2  0 20:26 ?        00:00:00 [cpuhp/2]
+root        22     2  0 20:26 ?        00:00:00 [idle_inject/2]
+root        23     2  0 20:26 ?        00:00:00 [migration/2]
+root        24     2  0 20:26 ?        00:00:00 [ksoftirqd/2]
+root        26     2  0 20:26 ?        00:00:00 [kworker/2:0H-kb]
+root        27     2  0 20:26 ?        00:00:00 [cpuhp/3]
+root        28     2  0 20:26 ?        00:00:00 [idle_inject/3]
+root        29     2  0 20:26 ?        00:00:00 [migration/3]
+root        30     2  0 20:26 ?        00:00:00 [ksoftirqd/3]
+root        32     2  0 20:26 ?        00:00:00 [kworker/3:0H-kb]
+root        33     2  0 20:26 ?        00:00:00 [cpuhp/4]
+root        34     2  0 20:26 ?        00:00:00 [idle_inject/4]
+root        35     2  0 20:26 ?        00:00:00 [migration/4]
+root        36     2  0 20:26 ?        00:00:00 [ksoftirqd/4]
+root        38     2  0 20:26 ?        00:00:00 [kworker/4:0H-kb]
+root        39     2  0 20:26 ?        00:00:00 [cpuhp/5]
+root        40     2  0 20:26 ?        00:00:00 [idle_inject/5]
+root        41     2  0 20:26 ?        00:00:00 [migration/5]
+root        42     2  0 20:26 ?        00:00:00 [ksoftirqd/5]
+root        44     2  0 20:26 ?        00:00:00 [kworker/5:0H-ev]
+root        45     2  0 20:26 ?        00:00:00 [cpuhp/6]
+root        46     2  0 20:26 ?        00:00:00 [idle_inject/6]
+root        47     2  0 20:26 ?        00:00:00 [migration/6]
+root        48     2  0 20:26 ?        00:00:00 [ksoftirqd/6]
+root        50     2  0 20:26 ?        00:00:00 [kworker/6:0H-kb]
+root        51     2  0 20:26 ?        00:00:00 [cpuhp/7]
+root        52     2  0 20:26 ?        00:00:00 [idle_inject/7]
+root        53     2  0 20:26 ?        00:00:00 [migration/7]
+root        54     2  0 20:26 ?        00:00:00 [ksoftirqd/7]
+root        56     2  0 20:26 ?        00:00:00 [kworker/7:0H-kb]
+root        57     2  0 20:26 ?        00:00:00 [cpuhp/8]
+root        58     2  0 20:26 ?        00:00:00 [idle_inject/8]
+root        59     2  0 20:26 ?        00:00:00 [migration/8]
+root        60     2  0 20:26 ?        00:00:00 [ksoftirqd/8]
+root        62     2  0 20:26 ?        00:00:00 [kworker/8:0H-kb]
+root        63     2  0 20:26 ?        00:00:00 [cpuhp/9]
+root        64     2  0 20:26 ?        00:00:00 [idle_inject/9]
+root        65     2  0 20:26 ?        00:00:00 [migration/9]
+root        66     2  0 20:26 ?        00:00:00 [ksoftirqd/9]
+root        68     2  0 20:26 ?        00:00:00 [kworker/9:0H-kb]
+root        69     2  0 20:26 ?        00:00:00 [cpuhp/10]
+root        70     2  0 20:26 ?        00:00:00 [idle_inject/10]
+root        71     2  0 20:26 ?        00:00:00 [migration/10]
+root        72     2  0 20:26 ?        00:00:00 [ksoftirqd/10]
+root        74     2  0 20:26 ?        00:00:00 [kworker/10:0H-e]
+root        75     2  0 20:26 ?        00:00:00 [cpuhp/11]
+root        76     2  0 20:26 ?        00:00:00 [idle_inject/11]
+root        77     2  0 20:26 ?        00:00:00 [migration/11]
+root        78     2  0 20:26 ?        00:00:00 [ksoftirqd/11]
+root        80     2  0 20:26 ?        00:00:00 [kworker/11:0H-k]
+root        81     2  0 20:26 ?        00:00:00 [kdevtmpfs]
+root        82     2  0 20:26 ?        00:00:00 [netns]
+root        83     2  0 20:26 ?        00:00:00 [rcu_tasks_kthre]
+root        84     2  0 20:26 ?        00:00:00 [kauditd]
+root        87     2  0 20:26 ?        00:00:00 [khungtaskd]
+root        88     2  0 20:26 ?        00:00:00 [oom_reaper]
+root        89     2  0 20:26 ?        00:00:00 [writeback]
+root        90     2  0 20:26 ?        00:00:00 [kcompactd0]
+root        91     2  0 20:26 ?        00:00:00 [ksmd]
+root        92     2  0 20:26 ?        00:00:00 [khugepaged]
+root       138     2  0 20:26 ?        00:00:00 [kintegrityd]
+root       139     2  0 20:26 ?        00:00:00 [kblockd]
+root       140     2  0 20:26 ?        00:00:00 [blkcg_punt_bio]
+root       146     2  0 20:26 ?        00:00:00 [tpm_dev_wq]
+root       147     2  0 20:26 ?        00:00:00 [ata_sff]
+root       148     2  0 20:26 ?        00:00:00 [md]
+root       149     2  0 20:26 ?        00:00:00 [edac-poller]
+root       150     2  0 20:26 ?        00:00:00 [devfreq_wq]
+root       152     2  0 20:26 ?        00:00:00 [watchdogd]
+root       159     2  0 20:26 ?        00:00:00 [kswapd0]
+root       160     2  0 20:26 ?        00:00:00 [ecryptfs-kthrea]
+root       162     2  0 20:26 ?        00:00:00 [kthrotld]
+root       163     2  0 20:26 ?        00:00:00 [irq/123-aerdrv]
+root       164     2  0 20:26 ?        00:00:00 [irq/123-pciehp]
+root       165     2  0 20:26 ?        00:00:00 [irq/123-pcie-dp]
+root       166     2  0 20:26 ?        00:00:00 [irq/124-aerdrv]
+root       167     2  0 20:26 ?        00:00:00 [irq/124-pcie-dp]
+root       168     2  0 20:26 ?        00:00:00 [irq/125-aerdrv]
+root       169     2  0 20:26 ?        00:00:00 [irq/125-pcie-dp]
+root       170     2  0 20:26 ?        00:00:00 [acpi_thermal_pm]
+root       172     2  0 20:26 ?        00:00:00 [vfio-irqfd-clea]
+root       179     2  0 20:26 ?        00:00:00 [ipv6_addrconf]
+root       188     2  0 20:26 ?        00:00:00 [kstrp]
+root       206     2  0 20:26 ?        00:00:00 [charger_manager]
+root       277     2  0 20:26 ?        00:00:00 [scsi_eh_0]
+root       278     2  0 20:26 ?        00:00:00 [scsi_tmf_0]
+root       282     2  0 20:26 ?        00:00:00 [kworker/3:1H]
+root       285     2  0 20:26 ?        00:00:00 [kworker/1:1H-kb]
+root       306     2  0 20:26 ?        00:00:00 [kworker/11:2-ev]
+root       361     2  0 20:26 ?        00:00:00 [kworker/10:1H-k]
+root       365     2  0 20:26 ?        00:00:00 [kworker/5:1H-kb]
+root       412     2  0 20:26 ?        00:00:00 [kworker/4:1H-kb]
+root       413     2  0 20:26 ?        00:00:00 [kworker/11:1H-k]
+root       414     2  0 20:26 ?        00:00:01 [jbd2/sda2-8]
+root       415     2  0 20:26 ?        00:00:00 [ext4-rsv-conver]
+root       417     2  0 20:26 ?        00:00:00 [kworker/8:1H-kb]
+root       434     2  0 20:26 ?        00:00:00 [kworker/6:1H-kb]
+root       440     2  0 20:26 ?        00:00:00 [kworker/0:1H-kb]
+root       458     2  0 20:26 ?        00:00:00 [kworker/9:1H-kb]
+root       459     2  0 20:26 ?        00:00:00 [kworker/2:1H-kb]
+root       465     2  0 20:27 ?        00:00:00 [kworker/7:1H-kb]
+root       474     1  0 20:27 ?        00:00:00 /lib/systemd/systemd-journald
+root       495     1  0 20:27 ?        00:00:00 /sbin/lvmetad -f
+root       498     1  0 20:27 ?        00:00:01 /lib/systemd/systemd-udevd
+root       501     2  0 20:27 ?        00:00:00 [loop0]
+root       502     2  0 20:27 ?        00:00:00 [loop1]
+root       504     2  0 20:27 ?        00:00:00 [loop2]
+root       507     2  0 20:27 ?        00:00:00 [loop3]
+root       509     2  0 20:27 ?        00:00:00 [loop4]
+root       511     2  0 20:27 ?        00:00:00 [loop5]
+root       519     2  0 20:27 ?        00:00:00 [loop6]
+root       520     2  0 20:27 ?        00:00:00 [loop7]
+root       521     2  0 20:27 ?        00:00:00 [loop8]
+root       522     2  0 20:27 ?        00:00:00 [loop9]
+root       523     2  0 20:27 ?        00:00:00 [loop10]
+root       524     2  0 20:27 ?        00:00:00 [loop11]
+root       525     2  0 20:27 ?        00:00:00 [loop12]
+root       591     2  0 20:27 ?        00:00:00 [kworker/4:2-eve]
+root       592     2  0 20:27 ?        00:00:00 [irq/82-DELL09E2]
+root       604     2  0 20:27 ?        00:00:00 [irq/129-mei_me]
+root       606     2  0 20:27 ?        00:00:00 [cfg80211]
+root       615     2  0 20:27 ?        00:00:00 [kworker/u25:1-h]
+root       616     2  0 20:27 ?        00:00:00 [kworker/u25:2-h]
+root       674     2  0 20:27 ?        00:00:00 [ath10k_wq]
+root       675     2  0 20:27 ?        00:00:00 [ath10k_aux_wq]
+root       676     2  0 20:27 ?        00:00:00 [cryptd]
+root       693     2  0 20:27 ?        00:00:00 [nv_queue]
+root       694     2  0 20:27 ?        00:00:00 [nv_queue]
+root       705     2  0 20:27 ?        00:00:00 [nvidia-modeset/]
+root       706     2  0 20:27 ?        00:00:00 [nvidia-modeset/]
+root       722     2  0 20:27 ?        00:00:00 [UVM global queu]
+root       723     2  0 20:27 ?        00:00:00 [UVM deferred re]
+root       724     2  0 20:27 ?        00:00:00 [UVM Tools Event]
+root       753     2  0 20:27 ?        00:00:00 [irq/131-AudioHD]
+root       754     2  0 20:27 ?        00:00:00 [irq/131-AudioDS]
+systemd+   898     1  0 20:27 ?        00:00:01 /lib/systemd/systemd-resolved
+systemd+   900     1  0 20:27 ?        00:00:00 /lib/systemd/systemd-timesyncd
+root       951     1  0 20:27 ?        00:00:01 /usr/lib/udisks2/udisksd
+root       952     1  0 20:27 ?        00:00:00 /usr/lib/accountsservice/accounts-daemon
+root       953     1  0 20:27 ?        00:00:00 /usr/sbin/cron -f
+root       954     1  0 20:27 ?        00:00:00 /usr/bin/pantheon-parental-controls-daemon
+root       955     1  0 20:27 ?        00:00:00 /usr/lib/bluetooth/bluetoothd
+root       956     1  0 20:27 ?        00:00:01 /lib/systemd/systemd-logind
+root       957     1  0 20:27 ?        00:00:01 /usr/sbin/acpid
+syslog     958     1  0 20:27 ?        00:00:00 /usr/sbin/rsyslogd -n
+message+   959     1  0 20:27 ?        00:00:02 /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile -
+root       990     1  0 20:27 ?        00:00:00 /usr/bin/vmware-usbarbitrator
+root      1002     1  0 20:27 ?        00:00:00 /sbin/wpa_supplicant -u -s -O /run/wpa_supplicant
+root      1003     1  0 20:27 ?        00:00:03 /usr/sbin/NetworkManager --no-daemon
+root      1006     1  0 20:27 ?        00:00:00 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root      1008     1  0 20:27 ?        00:00:00 /usr/sbin/irqbalance --foreground
+avahi     1016     1  0 20:27 ?        00:00:00 avahi-daemon: running [pesu.local]
+root      1017     1  0 20:27 ?        00:00:00 /usr/sbin/ModemManager --filter-policy=strict
+root      1020     1  0 20:27 ?        00:00:02 /usr/lib/snapd/snapd
+nvidia-+  1028     1  0 20:27 ?        00:00:00 /usr/bin/nvidia-persistenced --user nvidia-persistenced --no-persistenc
+avahi     1031  1016  0 20:27 ?        00:00:00 avahi-daemon: chroot helper
+root      1038     1  0 20:27 ?        00:00:00 /usr/lib/policykit-1/polkitd --no-debug
+root      1084     1  0 20:27 ?        00:00:00 /usr/sbin/libvirtd
+colord    1087     1  0 20:27 ?        00:00:00 /usr/lib/colord/colord
+root      1089     1  0 20:27 ?        00:00:01 /usr/bin/anydesk --service
+root      1093     1  0 20:27 ?        00:00:00 /usr/sbin/lightdm
+root      1127  1093  1 20:27 tty7     00:02:48 /usr/lib/xorg/Xorg -core :0 -seat seat0 -auth /var/run/lightdm/root/:0 
+root      1133     1  0 20:27 tty1     00:00:00 /sbin/agetty -o -p -- \u --noclear tty1 linux
+root      1137     1  0 20:27 ?        00:00:00 /usr/sbin/sshd -D
+root      1222     2  1 20:27 ?        00:02:59 [irq/132-nvidia]
+root      1223     2  0 20:27 ?        00:00:00 [nvidia]
+root      1224     2  0 20:27 ?        00:00:02 [nv_queue]
+root      1248  1003  0 20:27 ?        00:00:00 /sbin/dhclient -d -q -sf /usr/lib/NetworkManager/nm-dhcp-helper -pf /ru
+kernoops  1273     1  0 20:27 ?        00:00:00 /usr/sbin/kerneloops --test
+kernoops  1275     1  0 20:27 ?        00:00:00 /usr/sbin/kerneloops
+root      1420     2  0 20:27 ?        00:00:00 bpfilter_umh
+root      1479     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-bridge -s 6 -d /var/run/vmnet-bridge-0.pid -n 0
+root      1490     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-netifup -s 6 -d /var/run/vmnet-netifup-vmnet1.pid /dev/v
+root      1504     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-dhcpd -s 6 -cf /etc/vmware/vmnet1/dhcpd/dhcpd.conf -lf /
+root      1510     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-natd -s 6 -m /etc/vmware/vmnet8/nat.mac -c /etc/vmware/v
+root      1512     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-netifup -s 6 -d /var/run/vmnet-netifup-vmnet8.pid /dev/v
+root      1521     1  0 20:27 ?        00:00:00 /usr/bin/vmnet-dhcpd -s 6 -cf /etc/vmware/vmnet8/dhcpd/dhcpd.conf -lf /
+libvirt+  1687     1  0 20:27 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --l
+root      1689  1687  0 20:27 ?        00:00:00 /usr/sbin/dnsmasq --conf-file=/var/lib/libvirt/dnsmasq/default.conf --l
+root      1887     1  0 20:27 ?        00:00:01 /usr/lib/upower/upowerd
+root      1945  1093  0 20:27 ?        00:00:00 lightdm --session-child 13 20
+rtkit     1955     1  0 20:27 ?        00:00:00 /usr/lib/rtkit/rtkit-daemon
+root      1974     2  0 20:27 ?        00:00:00 [krfcommd]
+bkkarth+  1982     1  0 20:28 ?        00:00:00 /lib/systemd/systemd --user
+bkkarth+  1983  1982  0 20:28 ?        00:00:00 (sd-pam)
+bkkarth+  1999     1  0 20:28 ?        00:00:00 /usr/bin/gnome-keyring-daemon --daemonize --login
+bkkarth+  2002  1945  0 20:28 ?        00:00:00 /usr/lib/gnome-session/gnome-session-binary --session=pantheon
+bkkarth+  2015  1982  0 20:28 ?        00:00:01 /usr/bin/dbus-daemon --session --address=systemd: --nofork --nopidfile 
+bkkarth+  2017  1982  0 20:28 ?        00:00:00 /usr/lib/gvfs/gvfsd
+bkkarth+  2022  1982  0 20:28 ?        00:00:00 /usr/lib/gvfs/gvfsd-fuse /run/user/1000/gvfs -f -o big_writes
+bkkarth+  2133  2002  0 20:28 ?        00:00:00 /usr/bin/ssh-agent /usr/bin/im-launch gnome-session --session=pantheon
+bkkarth+  2147  1982  0 20:28 ?        00:00:00 /usr/lib/at-spi2-core/at-spi-bus-launcher
+bkkarth+  2152  2147  0 20:28 ?        00:00:00 /usr/bin/dbus-daemon --config-file=/usr/share/defaults/at-spi2/accessib
+bkkarth+  2154  1982  0 20:28 ?        00:00:03 /usr/lib/at-spi2-core/at-spi2-registryd --use-gnome-session
+bkkarth+  2167  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-smartcard
+bkkarth+  2170  2002  0 20:28 ?        00:00:01 /usr/lib/gnome-settings-daemon/gsd-sharing
+bkkarth+  2173  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-housekeeping
+bkkarth+  2174  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-wacom
+bkkarth+  2183  2002  0 20:28 ?        00:00:01 /usr/lib/gnome-settings-daemon/gsd-color
+bkkarth+  2185  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-rfkill
+bkkarth+  2207  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-a11y-settings
+bkkarth+  2208  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-clipboard
+bkkarth+  2223  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-xsettings
+bkkarth+  2224  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-power
+bkkarth+  2225  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-keyboard
+bkkarth+  2231  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-sound
+bkkarth+  2233  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-print-notifications
+bkkarth+  2246  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-datetime
+bkkarth+  2250     1  0 20:28 ?        00:00:17 /usr/bin/pulseaudio --start --log-target=syslog
+bkkarth+  2251  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-mouse
+bkkarth+  2252  2002  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-media-keys
+bkkarth+  2281     1  0 20:28 ?        00:00:00 /usr/lib/gnome-settings-daemon/gsd-printer
+bkkarth+  2304  2002  3 20:28 ?        00:05:44 gala
+bkkarth+  2318  1982  0 20:28 ?        00:00:01 /usr/lib/dconf/dconf-service
+bkkarth+  2323  2002  0 20:28 ?        00:00:03 plank
+bkkarth+  2328  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/io.elementary.cerbere
+bkkarth+  2332  2002  0 20:28 ?        00:00:04 wingpanel
+bkkarth+  2342  1982  0 20:28 ?        00:00:01 /usr/lib/x86_64-linux-gnu/bamf/bamfdaemon
+bkkarth+  2368  2002  0 20:28 ?        00:00:00 gala-daemon
+bkkarth+  2375  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/policykit-1-pantheon/io.elementary.desktop.ag
+bkkarth+  2380  2002  0 20:28 ?        00:00:00 /usr/bin/anydesk --tray
+bkkarth+  2389  2002  0 20:28 ?        00:00:02 nm-applet
+bkkarth+  2390  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/geoclue2-1-pantheon/pantheon-agent-geoclue2
+bkkarth+  2392  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/pantheon-parental-controls-client
+bkkarth+  2405  2002  0 20:28 ?        00:00:00 light-locker
+bkkarth+  2414  2002  0 20:28 ?        00:00:00 /usr/lib/x86_64-linux-gnu/io.elementary.calendar-daemon
+bkkarth+  2444  1982  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-source-registry
+bkkarth+  2460  1982  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-calendar-factory
+bkkarth+  2472  2460  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-calendar-factory-subprocess --factory all 
+bkkarth+  2483  1982  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-addressbook-factory
+bkkarth+  2492  2483  0 20:28 ?        00:00:00 /usr/lib/evolution/evolution-addressbook-factory-subprocess --factory a
+bkkarth+  2921  2002  0 20:29 ?        00:00:02 io.elementary.appcenter -s
+bkkarth+  2935  2921  0 20:29 ?        00:00:00 sh -c /usr/lib/x86_64-linux-gnu/libproxy/0.4.14/pxgsettings org.gnome.s
+bkkarth+  2936  2935  0 20:29 ?        00:00:00 /usr/lib/x86_64-linux-gnu/libproxy/0.4.14/pxgsettings org.gnome.system.
+root      5087     1  0 20:32 ?        00:00:00 /usr/sbin/cupsd -l
+root      5088     1  0 20:32 ?        00:00:00 /usr/sbin/cups-browsed
+bkkarth+  5554     1  0 20:52 ?        00:00:39 io.elementary.terminal
+bkkarth+  5563  5554  0 20:52 pts/0    00:00:01 /bin/bash
+bkkarth+  5567  5554  0 20:52 pts/1    00:00:00 /bin/bash
+bkkarth+  5841     1  2 20:54 ?        00:03:36 /opt/google/chrome/chrome
+bkkarth+  5848  5841  0 20:54 ?        00:00:00 cat
+bkkarth+  5849  5841  0 20:54 ?        00:00:00 cat
+bkkarth+  5852  5841  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=zygote --no-zygote-sandbox --enable-cr
+bkkarth+  5853  5841  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=zygote --enable-crash-reporter=62850c4
+bkkarth+  5854  5853  0 20:54 ?        00:00:00 /opt/google/chrome/nacl_helper
+bkkarth+  5857  5853  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=zygote --enable-crash-reporter=62850c4
+bkkarth+  5881  5852  5 20:54 ?        00:08:17 /opt/google/chrome/chrome --type=gpu-process --field-trial-handle=64288
+bkkarth+  5884  5841  0 20:54 ?        00:00:32 /opt/google/chrome/chrome --type=utility --utility-sub-type=network.moj
+bkkarth+  5899  5881  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=broker
+bkkarth+  5906  5857  0 20:54 ?        00:00:01 /opt/google/chrome/chrome --type=utility --utility-sub-type=storage.moj
+bkkarth+  5922  5857  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5930  5857  0 20:54 ?        00:00:07 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5982  5857  0 20:54 ?        00:00:01 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5987  5857  0 20:54 ?        00:00:12 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  5992  5857  0 20:54 ?        00:00:35 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  6002  5857  0 20:54 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  6124  5857  6 20:54 ?        00:10:22 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  6336  5857  0 20:55 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+  9751  1982  0 22:20 ?        00:00:00 /usr/bin/gpg-agent --supervised
+bkkarth+ 10081  5857  5 22:23 ?        00:03:05 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+ 10536  5841  0 22:27 ?        00:00:06 /opt/google/chrome/chrome --type=utility --utility-sub-type=audio.mojom
+bkkarth+ 10572  5857  0 22:27 ?        00:00:02 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+bkkarth+ 10578  5857  6 22:27 ?        00:03:45 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+root     11332     2  0 22:38 ?        00:00:00 [kworker/3:1-eve]
+root     11336     2  0 22:38 ?        00:00:00 [kworker/7:3-mm_]
+bkkarth+ 11354     1  0 22:38 ?        00:00:19 /usr/share/teams/teams
+bkkarth+ 11358 11354  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=zygote --electron-shared-settings=eyJjci5
+bkkarth+ 11360 11358  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=zygote --electron-shared-settings=eyJjci5
+bkkarth+ 11395 11354  2 22:38 ?        00:01:21 /usr/share/teams/teams --type=gpu-process --field-trial-handle=61520013
+bkkarth+ 11398 11354  0 22:38 ?        00:00:04 /usr/share/teams/teams --type=utility --field-trial-handle=615200130769
+bkkarth+ 11407 11395  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=broker
+bkkarth+ 11426 11354  0 22:38 ?        00:00:00 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11497 11354  5 22:38 ?        00:02:40 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11527 11360  0 22:38 ?        00:00:03 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11557 11354  0 22:38 ?        00:00:06 /usr/share/teams/teams --type=renderer --autoplay-policy=no-user-gestur
+bkkarth+ 11899  2017  0 22:43 ?        00:00:00 /usr/lib/gvfs/gvfsd-http --spawner :1.2 /org/gtk/gvfs/exec_spaw/0
+root     11988     2  0 22:43 ?        00:00:00 [kworker/8:2-eve]
+root     11998     2  0 22:43 ?        00:00:00 [kworker/9:5-mm_]
+root     12033     2  0 22:43 ?        00:00:00 [kworker/10:2-ev]
+bkkarth+ 12077  5857  6 22:43 ?        00:02:27 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+root     12179     2  0 22:44 ?        00:00:00 [kworker/1:2-eve]
+root     12522     2  0 22:47 ?        00:00:00 [kworker/2:0-eve]
+bkkarth+ 13063  5857  0 22:53 ?        00:00:00 /opt/google/chrome/chrome --type=renderer --field-trial-handle=64288332
+root     13138     2  0 22:53 ?        00:00:00 [kworker/6:2-eve]
+root     13166     2  0 22:53 ?        00:00:00 [kworker/3:2]
+root     13241     2  0 22:54 ?        00:00:00 [kworker/5:2-mm_]
+root     13567     2  0 22:57 ?        00:00:00 [kworker/11:1-mm]
+root     13779     2  0 23:00 ?        00:00:00 [kworker/4:0-mm_]
+root     13851     2  0 23:00 ?        00:00:00 [kworker/8:1-eve]
+root     14385     2  0 23:05 ?        00:00:00 [kworker/1:1-mm_]
+root     14397     2  0 23:05 ?        00:00:00 [kworker/6:0-eve]
+root     14533     2  0 23:06 ?        00:00:00 [kworker/u24:0-e]
+root     15203     2  0 23:07 ?        00:00:00 [kworker/0:2-eve]
+root     15553     2  0 23:10 ?        00:00:00 [kworker/5:0-eve]
+root     15681     2  0 23:10 ?        00:00:00 [kworker/9:0]
+root     16155     2  0 23:12 ?        00:00:00 [kworker/2:2-mm_]
+root     16367     2  0 23:13 ?        00:00:00 [kworker/u24:3-e]
+root     17109     2  0 23:15 ?        00:00:00 [kworker/10:1-ev]
+root     17137     2  0 23:15 ?        00:00:00 [kworker/7:0-eve]
+root     17845     2  0 23:17 ?        00:00:00 [kworker/0:1-eve]
+root     19068     2  0 23:19 ?        00:00:00 [kworker/u24:1-e]
+root     19075     2  0 23:20 ?        00:00:00 [kworker/6:1-eve]
+root     19681     2  0 23:22 ?        00:00:00 [kworker/8:0]
+root     20276     2  0 23:23 ?        00:00:00 [pesuio]
+root     20277     2  0 23:23 ?        00:00:00 [kworker/5:1]
+root     20347  5563  0 23:24 pts/0    00:00:00 su -
+root     20348 20347  0 23:24 pts/0    00:00:00 -su
+root     20409 20348  0 23:24 pts/0    00:00:00 ps -ef
+root@pesu:~# logout
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ sudo rmmod *.ko
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c         Makefile            modules.order   new_misc_device.c   new_misc_device.mod    new_misc_device.mod.o
+linked_lists.c  misc_char_device.c  Module.symvers  new_misc_device.ko  new_misc_device.mod.c  new_misc_device.o
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ make clean
+make -C /lib/modules/5.4.0-59-generic/build M=/home/bkkarthik/Work/kernel-assignment/drivers/testing clean
+make[1]: Entering directory '/usr/src/linux-headers-5.4.0-59-generic'
+  CLEAN   /home/bkkarthik/Work/kernel-assignment/drivers/testing/Module.symvers
+make[1]: Leaving directory '/usr/src/linux-headers-5.4.0-59-generic'
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ ls
+final.c  linked_lists.c  Makefile  misc_char_device.c  new_misc_device.c
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ echo "things are working :)"
+things are working :)
+bkkarthik:~/Work/kernel-assignment/drivers/testing$ 
